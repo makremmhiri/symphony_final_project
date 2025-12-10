@@ -58,9 +58,8 @@ class ProduitType extends AbstractType
             ->add('imageFile', FileType::class, [
                 'label' => 'Image du produit',
                 'required' => false,
-                'mapped' => false, // This means it's not directly mapped to entity
+                'mapped' => false,
                 'attr' => ['class' => 'form-control']
-                // NO VALIDATION - we'll handle it manually
             ])
             ->add('id_mag', EntityType::class, [
                 'class' => Magasin::class,
@@ -78,6 +77,9 @@ class ProduitType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Produit::class,
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            'csrf_token_id'   => 'produit_item',
         ]);
     }
 }

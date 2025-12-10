@@ -36,6 +36,7 @@ class Produit
     #[ORM\JoinColumn(nullable: false)]
     private ?Magasin $id_mag = null;
 
+    // Getters and setters with camelCase names
     public function getId(): ?int
     {
         return $this->id;
@@ -49,7 +50,6 @@ class Produit
     public function setNomProd(string $nom_prod): static
     {
         $this->nom_prod = $nom_prod;
-
         return $this;
     }
 
@@ -61,7 +61,6 @@ class Produit
     public function setPrix(float $prix): static
     {
         $this->prix = $prix;
-
         return $this;
     }
 
@@ -73,7 +72,6 @@ class Produit
     public function setQuatiteDisp(int $quatite_disp): static
     {
         $this->quatite_disp = $quatite_disp;
-
         return $this;
     }
 
@@ -85,7 +83,6 @@ class Produit
     public function setMarque(?string $marque): static
     {
         $this->marque = $marque;
-
         return $this;
     }
 
@@ -97,7 +94,6 @@ class Produit
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -109,7 +105,6 @@ class Produit
     public function setImg(string $img): static
     {
         $this->img = $img;
-
         return $this;
     }
 
@@ -121,7 +116,6 @@ class Produit
     public function setIdMag(?Magasin $id_mag): static
     {
         $this->id_mag = $id_mag;
-
         return $this;
     }
 }

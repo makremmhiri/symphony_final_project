@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header">
                     <h2 class="h4 mb-0">
-                        <i class="fas fa-edit me-2"></i>Modifier Produit
+                        <i class="bi bi-pencil me-2"></i>Modifier Produit
                     </h2>
                 </div>
                 <div class="card-body">
@@ -17,18 +17,18 @@
                     
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            {{ form_label(form.nomProd, null, {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_widget(form.nomProd, {'attr': {'class': 'form-control' ~ (form.nomProd.vars.errors|length ? ' is-invalid' : '')}}) }}
+                            {{ form_label(form.nom_prod, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.nom_prod, {'attr': {'class': 'form-control' ~ (form.nom_prod.vars.errors|length ? ' is-invalid' : '')}}) }}
                             <div class="invalid-feedback">
-                                {{ form_errors(form.nomProd) }}
+                                {{ form_errors(form.nom_prod) }}
                             </div>
                         </div>
                         
                         <div class="col-md-6 mb-3">
-                            {{ form_label(form.idMag, null, {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_widget(form.idMag, {'attr': {'class': 'form-select' ~ (form.idMag.vars.errors|length ? ' is-invalid' : '')}}) }}
+                            {{ form_label(form.id_mag, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.id_mag, {'attr': {'class': 'form-select' ~ (form.id_mag.vars.errors|length ? ' is-invalid' : '')}}) }}
                             <div class="invalid-feedback">
-                                {{ form_errors(form.idMag) }}
+                                {{ form_errors(form.id_mag) }}
                             </div>
                         </div>
                     </div>
@@ -46,10 +46,10 @@
                         </div>
                         
                         <div class="col-md-6 mb-3">
-                            {{ form_label(form.quatiteDisp, null, {'label_attr': {'class': 'form-label'}}) }}
-                            {{ form_widget(form.quatiteDisp, {'attr': {'class': 'form-control' ~ (form.quatiteDisp.vars.errors|length ? ' is-invalid' : '')}}) }}
+                            {{ form_label(form.quatite_disp, null, {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.quatite_disp, {'attr': {'class': 'form-control' ~ (form.quatite_disp.vars.errors|length ? ' is-invalid' : '')}}) }}
                             <div class="invalid-feedback">
-                                {{ form_errors(form.quatiteDisp) }}
+                                {{ form_errors(form.quatite_disp) }}
                             </div>
                         </div>
                     </div>
@@ -72,8 +72,9 @@
                             {% if form.vars.data.img %}
                                 <div class="mt-2">
                                     <small class="text-muted">Image actuelle:</small><br>
-                                    <img src="{{ asset('images/products/' ~ form.vars.data.img) }}" 
-                                         alt="{{ form.vars.data.nomProd }}" 
+                                    {% set produit = form.vars.data %}
+                                    <img src="{{ asset('images/products/' ~ produit.img) }}" 
+                                         alt="{{ produit.nomProd }}" 
                                          class="img-thumbnail mt-1" 
                                          style="width: 100px; height: 100px; object-fit: cover;">
                                 </div>
@@ -89,29 +90,32 @@
                         </div>
                     </div>
                     
+                    {# CSRF Token #}
+                    {{ form_row(form._token) }}
+                    
                     <div class="d-flex justify-content-between mt-4">
                         <a href="{{ path('app_produit') }}" class="btn btn-outline-secondary">
-                            <i class="fas fa-arrow-left me-2"></i>Annuler
+                            <i class="bi bi-arrow-left me-2"></i>Annuler
                         </a>
                         <div>
                             <button type="submit" class="btn btn-primary">
-                                <i class="fas fa-save me-2"></i>Enregistrer les modifications
+                                <i class="bi bi-save me-2"></i>Enregistrer les modifications
                             </button>
                         </div>
                     </div>
                     
-                    {{ form_end(form) }}
+                    {{ form_end(form, {'render_rest': false}) }}
                 </div>
             </div>
             
             <!-- Delete Form -->
             <div class="card mt-4 border-danger">
                 <div class="card-header bg-danger text-white">
-                    <h5 class="mb-0"><i class="fas fa-exclamation-triangle me-2"></i>Zone de danger</h5>
+                    <h5 class="mb-0"><i class="bi bi-exclamation-triangle me-2"></i>Zone de danger</h5>
                 </div>
                 <div class="card-body">
                     <p class="mb-3">Cette action est irréversible. Toutes les données associées à ce produit seront supprimées.</p>
-                    {{ include('produit/_delete_form.html.twig') }}
+                    {{ include('produit/delete.html.twig') }}
                 </div>
             </div>
         </div>

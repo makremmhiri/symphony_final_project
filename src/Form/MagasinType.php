@@ -96,6 +96,9 @@ class MagasinType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Magasin::class,
+            'csrf_protection' => true, // Add this
+            'csrf_field_name' => '_token',
+            'csrf_token_id'   => 'magasin_item', // Add unique token ID
         ]);
     }
 }
