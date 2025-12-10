@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur #{{ user.id }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Utilisateur #{{ user.id }}</h1>
+    
+    <p><strong>Nom:</strong> {{ user.nomUser }}</p>
+    <p><strong>Prénom:</strong> {{ user.prenomUser }}</p>
+    <p><strong>Email:</strong> {{ user.mail }}</p>
+    <p><strong>Téléphone:</strong> {{ user.tel }}</p>
+    {# <!-- REMOVED: <p><strong>Magasin:</strong> {{ user.idMag ? user.idMag.nom : '-' }}</p> --> #}
+    
+    <a href="{{ path('app_user') }}" class="btn btn-secondary">Retour</a>
+    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-warning">Modifier</a>
+</div>
+{% endblock %}

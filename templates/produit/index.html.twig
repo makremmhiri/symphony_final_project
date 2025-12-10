@@ -6,7 +6,13 @@
 <div class="container mt-4">
     <div class="row">
         <div class="col-12">
-            <h1 class="mb-4">Liste des Produits</h1>
+            <!-- Header with title and "New Product" button -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="mb-0">Liste des Produits</h1>
+                <a href="{{ path('app_produit_new') }}" class="btn btn-success">
+                    <i class="fas fa-plus me-2"></i>Nouveau Produit
+                </a>
+            </div>
 
             <!-- Formulaire de filtres -->
             <div class="card mb-4">
@@ -79,6 +85,7 @@
                                     <th>Stock</th>
                                     <th>Description</th>
                                     <th>Magasin</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,7 +94,7 @@
                                         <td>{{ produit.id }}</td>
                                         <td>
                                             {% if produit.img %}
-                                                <img src="{{ asset('uploads/products/' ~ produit.img) }}" 
+                                                <img src="{{ asset('images/products/' ~ produit.img) }}" 
                                                      alt="{{ produit.nomProd }}" 
                                                      class="img-thumbnail" 
                                                      style="width: 60px; height: 60px; object-fit: cover;">
@@ -134,10 +141,31 @@
                                                 <span class="text-muted">N/A</span>
                                             {% endif %}
                                         </td>
+                                        <td class="text-nowrap">
+                                            <a href="{{ path('app_produit_show', {'id': produit.id}) }}" 
+                                               class="btn btn-sm btn-info me-1" 
+                                               title="Voir">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" 
+                                               class="btn btn-sm btn-warning me-1" 
+                                               title="Modifier">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <form method="post" 
+                                                  action="{{ path('app_produit_delete', {'id': produit.id}) }}" 
+                                                  style="display: inline;" 
+                                                  onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce produit?');">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ produit.id) }}">
+                                                <button class="btn btn-sm btn-danger" title="Supprimer">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 {% else %}
                                     <tr>
-                                        <td colspan="8" class="text-center py-4">
+                                        <td colspan="9" class="text-center py-4">
                                             <div class="text-muted">
                                                 <i class="fas fa-box-open fa-3x mb-3"></i>
                                                 <h4>
@@ -151,6 +179,11 @@
                                                     <p>Aucun produit ne correspond à vos critères de recherche.</p>
                                                     <a href="{{ path('app_produit') }}" class="btn btn-primary">
                                                         Voir tous les produits
+                                                    </a>
+                                                {% else %}
+                                                    <p>Commencez par ajouter votre premier produit.</p>
+                                                    <a href="{{ path('app_produit_new') }}" class="btn btn-success">
+                                                        <i class="fas fa-plus me-2"></i>Ajouter un produit
                                                     </a>
                                                 {% endif %}
                                             </div>

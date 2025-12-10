@@ -1,0 +1,97 @@
+{# This file is not needed if you have navbar directly in base.html.twig #}
+{# But if you want it separate, here it is: #}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+        <!-- Logo à gauche -->
+        <a class="navbar-brand fw-bold text-primary" href="{{ path('app_main') }}">
+            <i class="bi bi-shop me-2"></i>ShopPlus
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <!-- Liens au centre -->
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link {{ app.request.get('_route') == 'app_main' ? 'active' : '' }}" 
+                       href="{{ path('app_main') }}">
+                        <i class="bi bi-house-door me-1"></i>Accueil
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ app.request.get('_route') in ['app_produit', 'produit_index'] ? 'active' : '' }}" 
+                       href="{{ path('app_produit') }}">
+                        <i class="bi bi-box me-1"></i>Produits
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ app.request.get('_route') in ['app_magasin', 'magasin_index'] ? 'active' : '' }}" 
+                       href="{{ path('app_magasin') }}">
+                        <i class="bi bi-shop me-1"></i>Magasins
+                    </a>
+                </li>
+                {% if app.user and is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link {{ app.request.get('_route') == 'app_user' ? 'active' : '' }}" 
+                           href="{{ path('app_user') }}">
+                            <i class="bi bi-people me-1"></i>Utilisateurs
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            
+            <!-- Login à droite -->
+            <div class="navbar-nav ms-auto">
+                {% if app.user %}
+                    <!-- Si l'utilisateur est connecté -->
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" 
+                           data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-2"></i>
+                            {{ app.user.email }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <a class="dropdown-item" href="{{ path('app_user_show', {'id': app.user.id}) }}">
+                                    <i class="bi bi-person me-2"></i>Mon Profil
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ path('app_user_edit', {'id': app.user.id}) }}">
+                                    <i class="bi bi-pencil me-2"></i>Modifier mon compte
+                                </a>
+                            </li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ path('app_user') }}">
+                                        <i class="bi bi-people me-2"></i>Gestion des utilisateurs
+                                    </a>
+                                </li>
+                            {% endif %}
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <form method="post" action="{{ path('app_logout') }}" class="d-inline">
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <!-- Si l'utilisateur n'est pas connecté -->
+                    <a class="btn btn-outline-primary me-2" href="{{ path('app_login') }}">
+                        <i class="bi bi-box-arrow-in-right me-1"></i>Connexion
+                    </a>
+                    <a class="btn btn-primary" href="{{ path('app_user_new') }}">
+                        <i class="bi bi-person-plus me-1"></i>Inscription
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>

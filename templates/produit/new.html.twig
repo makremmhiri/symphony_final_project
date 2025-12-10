@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Produit{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="h4 mb-0">
+                        <i class="fas fa-plus-circle me-2"></i>Nouveau Produit
+                    </h2>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                    
+                    <div class="mb-3">
+                        {{ form_label(form.nom_prod) }}
+                        {{ form_widget(form.nom_prod, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.nom_prod) }}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.prix) }}
+                            {{ form_widget(form.prix, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.prix) }}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.quatite_disp) }}
+                            {{ form_widget(form.quatite_disp, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.quatite_disp) }}
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.marque) }}
+                            {{ form_widget(form.marque, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.marque) }}
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.id_mag) }}
+                            {{ form_widget(form.id_mag, {'attr': {'class': 'form-select'}}) }}
+                            {{ form_errors(form.id_mag) }}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form_label(form.imageFile) }}
+                        {{ form_widget(form.imageFile, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.imageFile) }}
+                        <small class="text-muted">Formats acceptés: JPG, PNG, GIF, WEBP (max 5MB)</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        {{ form_label(form.description) }}
+                        {{ form_widget(form.description, {'attr': {'class': 'form-control', 'rows': 4}}) }}
+                        {{ form_errors(form.description) }}
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ path('app_produit') }}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Retour à la liste
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Créer
+                        </button>
+                    </div>
+                    
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

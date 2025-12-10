@@ -1,107 +1,213 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil - ShopPlus{% endblock %}
 
 {% block body %}
-<div class="container-fluid p-0">
     <!-- Hero Section -->
-    <div class="bg-light py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 text-center">
-                    <h1 class="display-4 fw-bold text-primary mb-3">Bienvenue sur Notre Plateforme</h1>
-                    <p class="lead text-muted mb-5">Découvrez nos produits et magasins</p>
+    <div class="container-fluid px-0 mb-5">
+        <div class="hero-section" style="
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 500px;
+            display: flex;
+            align-items: center;
+        ">
+            <div class="container text-white">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="display-4 fw-bold mb-4">Bienvenue sur ShopPlus</h1>
+                        <p class="lead mb-4">
+                            Découvrez une plateforme complète de gestion de vos produits et magasins. 
+                            Simple, efficace et performant.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3">
+                            <a href="{{ path('app_produit') }}" class="btn btn-light btn-lg">
+                                <i class="bi bi-box me-2"></i>Voir les produits
+                            </a>
+                            <a href="{{ path('app_magasin') }}" class="btn btn-outline-light btn-lg">
+                                <i class="bi bi-shop me-2"></i>Voir les magasins
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 d-none d-lg-block text-center">
+                        <i class="bi bi-shop-window display-1 opacity-75"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Version avec images de fond -->
+    <!-- Features Section -->
     <div class="container my-5">
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="card text-white bg-dark">
-                    <img src="https://via.placeholder.com/600x300/007bff/ffffff?text=PRODUITS" 
-                         class="card-img" 
-                         alt="Produits"
-                         style="height: 300px; object-fit: cover;">
-                    <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                        <div class="text-center">
-                            <h2 class="card-title fw-bold">Produits</h2>
-                            <p class="card-text">Découvrez notre catalogue</p>
-                            <a href="{{ path('app_produit') }}" class="btn btn-light btn-lg mt-3">
-                                Explorer
-                            </a>
-                        </div>
+        <div class="row text-center mb-5">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100 hover-shadow">
+                    <div class="card-body p-4">
+                        <i class="bi bi-box-seam display-4 text-primary mb-3"></i>
+                        <h4 class="card-title fw-bold">Gestion des Produits</h4>
+                        <p class="card-text text-muted">
+                            Ajoutez, modifiez et gérez facilement votre catalogue de produits.
+                        </p>
+                        <a href="{{ path('app_produit') }}" class="btn btn-outline-primary">
+                            Explorer <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6 mb-4">
-                <div class="card text-white bg-dark">
-                    <img src="https://via.placeholder.com/600x300/28a745/ffffff?text=MAGASINS" 
-                         class="card-img" 
-                         alt="Magasins"
-                         style="height: 300px; object-fit: cover;">
-                    <div class="card-img-overlay d-flex align-items-center justify-content-center">
-                        <div class="text-center">
-                            <h2 class="card-title fw-bold">Magasins</h2>
-                            <p class="card-text">Trouvez nos points de vente</p>
-                            <a href="{{ path('app_magasin') }}" class="btn btn-light btn-lg mt-3">
-                                Découvrir
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100 hover-shadow">
+                    <div class="card-body p-4">
+                        <i class="bi bi-shop display-4 text-primary mb-3"></i>
+                        <h4 class="card-title fw-bold">Gestion des Magasins</h4>
+                        <p class="card-text text-muted">
+                            Gérez vos points de vente et leurs informations en temps réel.
+                        </p>
+                        <a href="{{ path('app_magasin') }}" class="btn btn-outline-primary">
+                            Explorer <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100 hover-shadow">
+                    <div class="card-body p-4">
+                        <i class="bi bi-bar-chart display-4 text-primary mb-3"></i>
+                        <h4 class="card-title fw-bold">Tableau de Bord</h4>
+                        <p class="card-text text-muted">
+                            Suivez vos statistiques et performances avec des rapports détaillés.
+                        </p>
+                        <a href="{{ path('app_main') }}" class="btn btn-outline-primary">
+                            Explorer <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Stats -->
+        <div class="row bg-light rounded-3 p-4 mb-5">
+            {% set stats = {
+                'magasins': magasin_count|default(0),
+                'produits': produit_count|default(0),
+                'utilisateurs': user_count|default(0),
+                'satisfaction': 100
+            } %}
+            
+            <div class="col-md-3 text-center">
+                <div class="stat-item">
+                    <h3 class="text-primary fw-bold display-5">{{ stats.magasins }}</h3>
+                    <p class="text-muted mb-0">
+                        <i class="bi bi-shop me-1"></i>Magasins
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="stat-item">
+                    <h3 class="text-primary fw-bold display-5">{{ stats.produits }}</h3>
+                    <p class="text-muted mb-0">
+                        <i class="bi bi-box me-1"></i>Produits
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="stat-item">
+                    <h3 class="text-primary fw-bold display-5">{{ stats.utilisateurs }}</h3>
+                    <p class="text-muted mb-0">
+                        <i class="bi bi-people me-1"></i>Utilisateurs
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-3 text-center">
+                <div class="stat-item">
+                    <h3 class="text-primary fw-bold display-5">{{ stats.satisfaction }}%</h3>
+                    <p class="text-muted mb-0">
+                        <i class="bi bi-check-circle me-1"></i>Satisfaction
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="bg-primary text-white p-5 rounded-3 text-center">
+                    <h2 class="mb-3">Commencez dès maintenant !</h2>
+                    <p class="lead mb-4">
+                        Rejoignez notre communauté et simplifiez la gestion de votre activité.
+                    </p>
+                    <div class="d-flex justify-content-center gap-3">
+                        {% if not app.user %}
+                            <a href="{{ path('app_user_new') }}" class="btn btn-light btn-lg">
+                                <i class="bi bi-person-plus me-2"></i>S'inscrire gratuitement
                             </a>
-                        </div>
+                        {% endif %}
+                        <a href="{{ path('app_produit') }}" class="btn btn-outline-light btn-lg">
+                            <i class="bi bi-eye me-2"></i>Découvrir la plateforme
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
 
-    <!-- Statistiques rapides -->
-    <div class="bg-light py-4">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <h3 class="text-primary fw-bold">+1000</h3>
-                    <p class="text-muted">Produits disponibles</p>
-                </div>
-                <div class="col-md-4">
-                    <h3 class="text-success fw-bold">+50</h3>
-                    <p class="text-muted">Magasins partenaires</p>
-                </div>
-                <div class="col-md-4">
-                    <h3 class="text-warning fw-bold">24/7</h3>
-                    <p class="text-muted">Service client</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+{% block stylesheets %}
 <style>
-.card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 15px;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-.btn {
-    border-radius: 10px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-}
-
-.card-img-overlay {
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 15px;
-}
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hover-shadow {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+    }
+    
+    .stat-item {
+        padding: 20px 0;
+    }
+    
+    @media (max-width: 768px) {
+        .hero-section {
+            height: 400px;
+            text-align: center;
+        }
+        
+        .hero-section h1 {
+            font-size: 2.5rem;
+        }
+    }
 </style>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animation pour les statistiques
+        const statNumbers = document.querySelectorAll('.stat-item h3');
+        
+        statNumbers.forEach(stat => {
+            const text = stat.textContent;
+            const finalNumber = parseInt(text.replace('%', ''));
+            
+            if (!isNaN(finalNumber) && finalNumber > 0) {
+                let current = 0;
+                const increment = finalNumber / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= finalNumber) {
+                        current = finalNumber;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = text.includes('%') ? 
+                        Math.floor(current) + '%' : 
+                        Math.floor(current);
+                }, 30);
+            }
+        });
+    });
+</script>
 {% endblock %}

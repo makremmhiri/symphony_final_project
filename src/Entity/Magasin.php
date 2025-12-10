@@ -33,11 +33,8 @@ class Magasin
     /**
      * @var Collection<int, Produit>
      */
-    #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'id_mag')]
+    #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'id_mag',cascade: ['persist', 'remove'])]
     private Collection $produits;
-
-    #[ORM\OneToOne(mappedBy: 'id_mag', cascade: ['persist', 'remove'])]
-    private ?User $user = null;
 
     public function __construct()
     {
@@ -135,28 +132,6 @@ class Magasin
                 $produit->setIdMag(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($user === null && $this->user !== null) {
-            $this->user->setIdMag(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($user !== null && $user->getIdMag() !== $this) {
-            $user->setIdMag($this);
-        }
-
-        $this->user = $user;
 
         return $this;
     }

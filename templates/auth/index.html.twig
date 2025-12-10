@@ -1,20 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AuthController!{% endblock %}
+{% block title %}Authentification - ShopPlus{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/My MSI/ALL/2025/ik/9raya/Lsim3/tp/symfony/final_projet/src/Controller/AuthController.php</code></li>
-        <li>Your template at <code>C:/Users/My MSI/ALL/2025/ik/9raya/Lsim3/tp/symfony/final_projet/templates/auth/index.html.twig</code></li>
-    </ul>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-body p-5 text-center">
+                    <i class="bi bi-shield-check display-1 text-primary mb-4"></i>
+                    <h1 class="h2 mb-3">Bienvenue sur ShopPlus</h1>
+                    <p class="lead text-muted mb-4">
+                        Connectez-vous pour accéder à votre tableau de bord
+                    </p>
+                    
+                    <div class="d-grid gap-3">
+                        <a href="{{ path('app_login') }}" class="btn btn-primary btn-lg">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Se connecter
+                        </a>
+                        <a href="{{ path('app_user_new') }}" class="btn btn-outline-primary btn-lg">
+                            <i class="bi bi-person-plus me-2"></i>Créer un compte
+                        </a>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="row text-center">
+                        <div class="col-md-6 mb-3">
+                            <div class="card border-0 bg-light">
+                                <div class="card-body">
+                                    <i class="bi bi-shop display-6 text-primary mb-3"></i>
+                                    <h5>Gestion des Magasins</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card border-0 bg-light">
+                                <div class="card-body">
+                                    <i class="bi bi-box display-6 text-primary mb-3"></i>
+                                    <h5>Gestion des Produits</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

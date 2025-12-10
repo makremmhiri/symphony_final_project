@@ -3,8 +3,16 @@
 {% block title %}Liste des Magasins{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1 class="my-4">Liste des Magasins</h1>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <!-- Header with "New Magasin" button -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="mb-0">Liste des Magasins</h1>
+                <a href="{{ path('app_magasin_new') }}" class="btn btn-success">
+                    <i class="fas fa-plus me-2"></i>Nouveau Magasin
+                </a>
+            </div>
 
     {% if magasins is not empty %}
         <div class="table-responsive">
@@ -36,8 +44,12 @@
                                 <span class="badge bg-primary">{{ magasin.produits|length }} produits</span>
                             </td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-outline-primary">Voir</a>
-                                <a href="#" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                                <a href="{{ path('app_magasin_show', {'id': magasin.id}) }}" class="btn btn-sm btn-outline-primary">Voir</a>
+                                <a href="{{ path('app_magasin_edit', {'id': magasin.id}) }}" class="btn btn-sm btn-outline-secondary">Modifier</a>
+                                <form method="post" action="{{ path('app_magasin_delete', {'id': magasin.id}) }}" style="display: inline;" onsubmit="return confirm('Supprimer ce magasin?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ magasin.id) }}">
+                                    <button class="btn btn-sm btn-outline-danger">Supprimer</button>
+                                </form>
                             </td>
                         </tr>
                     {% endfor %}
@@ -47,7 +59,14 @@
     {% else %}
         <div class="alert alert-info">
             <i class="fas fa-info-circle"></i> Aucun magasin trouvé dans la base de données.
+            <div class="mt-2">
+                <a href="{{ path('app_magasin_new') }}" class="btn btn-success">
+                    <i class="fas fa-plus me-2"></i>Ajouter un magasin
+                </a>
+            </div>
         </div>
     {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}

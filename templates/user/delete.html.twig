@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer l'Utilisateur{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h2 class="h4 mb-0">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Confirmation de suppression
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning">
+                        <h5 class="alert-heading">Attention!</h5>
+                        <p>Vous êtes sur le point de supprimer l'utilisateur suivant :</p>
+                        <hr>
+                        <ul class="mb-0">
+                            <li><strong>ID:</strong> {{ user.id }}</li>
+                            <li><strong>Nom:</strong> {{ user.nomUser }}</li>
+                            <li><strong>Prénom:</strong> {{ user.prenomUser }}</li>
+                            <li><strong>Email:</strong> {{ user.mail }}</li>
+                        </ul>
+                    </div>
+                    
+                    <p class="text-danger fw-bold">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        Cette action est irréversible. Êtes-vous sûr de vouloir continuer ?
+                    </p>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ path('app_user') }}" class="btn btn-secondary">
+                            <i class="fas fa-times me-2"></i>Annuler
+                        </a>
+                        <form method="post" action="{{ path('app_user_delete', {'id': user.id}) }}">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-2"></i>Oui, supprimer
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

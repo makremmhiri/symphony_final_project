@@ -1,66 +1,81 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails de {{ produit.nomProd }}{% endblock %}
+{% block title %}Détails du Produit{% endblock %}
 
 {% block body %}
 <div class="container mt-4">
-    <div class="row">
-        <div class="col-12">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path('app_produit') }}">Produits</a></li>
-                    <li class="breadcrumb-item active">{{ produit.nomProd }}</li>
-                </ol>
-            </nav>
-
+    <div class="row justify-content-center">
+        <div class="col-md-8">
             <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h2 class="h4 mb-0">Détails du Produit</h2>
+                    <span class="badge bg-primary">ID: {{ produit.id }}</span>
+                </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4 mb-3">
                             {% if produit.img %}
-                                <img src="{{ asset('uploads/products/' ~ produit.img) }}" 
-                                    alt="{{ produit.nomProd }}" 
-                                    class="img-fluid rounded">
+                                <img src="{{ asset('images/products/' ~ produit.img) }}" 
+                                     alt="{{ produit.nomProd }}" 
+                                     class="img-fluid rounded"
+                                     style="max-height: 300px; object-fit: cover;">
                             {% else %}
-                                <div class="bg-light d-flex align-items-center justify-content-center rounded" 
-                                    style="height: 300px;">
-                                    <i class="fas fa-image fa-3x text-muted"></i>
+                                <div class="bg-light d-flex align-items-center justify-content-center rounded"
+                                     style="height: 300px;">
+                                    <i class="fas fa-image fa-4x text-muted"></i>
                                 </div>
                             {% endif %}
                         </div>
                         <div class="col-md-8">
-                            <h1 class="h2">{{ produit.nomProd }}</h1>
-                            
-                            {% if produit.marque %}
-                                <p class="text-muted">Marque: <span class="badge bg-secondary">{{ produit.marque }}</span></p>
-                            {% endif %}
-                            
-                            <h3 class="text-primary mb-3">{{ produit.prix }} €</h3>
+                            <h3 class="mb-3">{{ produit.nomProd }}</h3>
                             
                             <div class="mb-3">
-                                {% if produit.quatiteDisp > 10 %}
-                                    <span class="badge bg-success fs-6">En stock ({{ produit.quatiteDisp }} unités)</span>
-                                {% elseif produit.quatiteDisp > 0 %}
-                                    <span class="badge bg-warning fs-6">Stock faible ({{ produit.quatiteDisp }} unités)</span>
+                                <h5 class="text-primary">{{ produit.prix }} €</h5>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <strong>Marque:</strong>
+                                {% if produit.marque %}
+                                    <span class="badge bg-secondary">{{ produit.marque }}</span>
                                 {% else %}
-                                    <span class="badge bg-danger fs-6">Rupture de stock</span>
+                                    <span class="text-muted">Non spécifiée</span>
                                 {% endif %}
                             </div>
                             
-                            <div class="mb-4">
-                                <h5>Description:</h5>
-                                <p class="lead">{{ produit.description }}</p>
+                            <div class="mb-3">
+                                <strong>Quantité disponible:</strong>
+                                {% if produit.quatiteDisp > 10 %}
+                                    <span class="badge bg-success">{{ produit.quatiteDisp }} unités</span>
+                                {% elseif produit.quatiteDisp > 0 %}
+                                    <span class="badge bg-warning">{{ produit.quatiteDisp }} unités</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Rupture de stock</span>
+                                {% endif %}
                             </div>
                             
-                            <div class="d-grid gap-2 d-md-flex">
+                            <div class="mb-3">
+                                <strong>Magasin:</strong>
+                                {% if produit.idMag %}
+                                    <span class="badge bg-info">
+                                        {{ produit.idMag.nom }}
+                                    </span>
+                                {% else %}
+                                    <span class="text-muted">Non attribué</span>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <strong>Description:</strong>
+                                <p class="mt-2">{{ produit.description ? produit.description : 'Aucune description' }}</p>
+                            </div>
+                            
+                            <div class="d-flex gap-2 mt-4">
                                 <a href="{{ path('app_produit') }}" class="btn btn-outline-secondary">
                                     <i class="fas fa-arrow-left me-2"></i>Retour à la liste
                                 </a>
-                                {% if produit.quatiteDisp > 0 %}
-                                    <button class="btn btn-primary">
-                                        <i class="fas fa-cart-plus me-2"></i>Ajouter au panier
-                                    </button>
-                                {% endif %}
+                                <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-warning">
+                                    <i class="fas fa-edit me-2"></i>Modifier
+                                </a>
                             </div>
                         </div>
                     </div>

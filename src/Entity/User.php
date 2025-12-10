@@ -27,9 +27,6 @@ class User
     #[ORM\Column(length: 8)]
     private ?string $tel = null;
 
-    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
-    private ?Magasin $id_mag = null;
-
     #[ORM\Column(length: 255)]
     private ?string $mdp = null;
 
@@ -93,18 +90,6 @@ class User
     public function setTel(string $tel): static
     {
         $this->tel = $tel;
-
-        return $this;
-    }
-
-    public function getIdMag(): ?Magasin
-    {
-        return $this->id_mag;
-    }
-
-    public function setIdMag(?Magasin $id_mag): static
-    {
-        $this->id_mag = $id_mag;
 
         return $this;
     }
